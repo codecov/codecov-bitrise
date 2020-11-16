@@ -47,4 +47,3 @@ workflows:
         inputs:
         - CODECOV_TOKEN: $CODECOV_TOKEN
         - other_options: $OPTIONS
-        
