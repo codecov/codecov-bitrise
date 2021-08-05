@@ -2,14 +2,16 @@
 
 set -e
 
-# Download and verify bash script
-curl -fLso codecov https://codecov.io/bash;
-VERSION=$(grep -o 'VERSION=\"[0-9\.]*\"' codecov | cut -d'"' -f2);
-for i in 1 256 512
-do
-  shasum -a $i -c --ignore-missing <(curl -s "https://raw.githubusercontent.com/codecov/codecov-bash/${VERSION}/SHA${i}SUM") ||
-  shasum -a $i -c <(curl -s "https://raw.githubusercontent.com/codecov/codecov-bash/${VERSION}/SHA${i}SUM" | grep -w "codecov")
-done
+# Download and verify Codecov uploader
+curl https://keybase.io/codecovsecurity/pgp_keys.asc | gpg --import # One-time step
+curl -Os "https://uploader.codecov.io/latest/${OS}/codecov"
+curl -Os "https://uploader.codecov.io/latest/${OS}/codecov.SHA256SUM"
+curl -Os "https://uploader.codecov.io/latest/${OS}/codecov.SHA256SUM.sig"
+gpg --verify codecov.SHA256SUM.sig codecov.SHA256SUM
+
+shasum -a 256 -c codecov.SHA256SUM
+
+chmod +x codecov
 
 # Upload coverage to Codecov
-bash ./codecov -Q "bitrise-step" -Z ${other_options}
+./codecov -Q "bitrise-step-3.0.0" -Z "${other_options}"
