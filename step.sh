@@ -14,4 +14,4 @@ shasum -a 256 -c codecov.SHA256SUM
 chmod +x codecov
 
 # Upload coverage to Codecov
-bash ./codecov -Q "bitrise-step-3.0.0" -Z ${other_options}
+./codecov -Q "bitrise-step-3.0.0" -Z "${other_options}"
