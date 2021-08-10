@@ -31,6 +31,10 @@ inputs:
         Name of the OS being used (options are "alpine" | "linux" | "macos")
       is_required: true
       is_sensitive: false
+      value_options:
+      - "alpine"
+      - "linux"
+      - "macos"
   - other_options: "-C $BITRISE_GIT_COMMIT"
     opts:
       title: Additional options for Codecov call
