@@ -2,6 +2,11 @@
 
 set -e
 
+# Install gpg for MacOS devices
+if [ -x "$(command -v brew)" ] && ! [ -x "$(command -v gpg)" ]; then
+  brew install gpg
+fi
+
 # Download and verify Codecov uploader
 curl https://keybase.io/codecovsecurity/pgp_keys.asc | gpg --import # One-time step
 curl -Os "https://uploader.codecov.io/latest/${OS}/codecov"
