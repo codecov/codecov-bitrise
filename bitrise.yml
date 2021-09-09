@@ -7,6 +7,8 @@ app:
   # define these in your .bitrise.secrets.yml
   - CODECOV_TOKEN: $CODECOV_TOKEN
   - OPTIONS: $OPTIONS
+  - OS: $OS
+  - VERSION: $VERSION
 
 workflows:
   # ----------------------------------------------------------------
