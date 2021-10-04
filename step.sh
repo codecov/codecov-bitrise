@@ -15,4 +15,4 @@ chmod +x codecov
 curl -H "Accept: application/json" "https://uploader.codecov.io/${OS}/${VERSION}" | grep -o '\"version\":\"v[0-9\.\_]\+\"' | head -1
 
 # Upload coverage to Codecov
-./codecov -Q "bitrise-step-3.0.0" -Z "${other_options}"
+./codecov -Q "bitrise-step-3.0.0" -Z ${other_options}
