@@ -38,7 +38,7 @@ inputs:
         Version of the Codecov Uploader to use (e.g. `v0.1.0_8880`)
       is_required: false
       is_sensitive: false
-  - other_options: "-C $BITRISE_GIT_COMMIT"
+  - other_options: "-C $GIT_CLONE_COMMIT_HASH"
     opts:
       title: Additional options for Codecov call
       description: |-
