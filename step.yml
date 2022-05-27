@@ -8,9 +8,6 @@ description: |-
 website: https://codecov.io
 source_code_url: https://github.com/codecov/codecov-bitrise
 support_url: https://community.codecov.io
-host_os_tags:
-  - osx-10.10
-  - ubuntu-14.04
 type_tags:
   - test
 is_requires_admin_user: false
@@ -36,6 +33,13 @@ inputs:
       title: "Uploader Version"
       description: |
         Version of the Codecov Uploader to use (e.g. `v0.1.0_8880`)
+      is_required: false
+      is_sensitive: false
+  - XCODE_ARCHIVE_PATH:
+    opts:
+      title: "Xcode archive path"
+      description: |
+        Specify the xcode archive path. Likely specified as the -resultBundlePath and should end in .xcresult. Only needed if running with xcode support
       is_required: false
       is_sensitive: false
   - other_options: "-C $GIT_CLONE_COMMIT_HASH"
