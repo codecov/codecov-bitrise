@@ -56,22 +56,32 @@ QKWiWJQF/XopkXwkyAYpyuyRMZ77oF7nuqLFnl5VVEiRo0Fwu45erebc6ccSwYZU
 -----END PGP PUBLIC KEY BLOCK-----"
 
 # Download and verify Codecov uploader
+<<<<<<< HEAD
 echo "${CODECOV_PUBLIC_PGP_KEY}" | gpg --no-default-keyring --import # One-time step
 curl -Os "https://uploader.codecov.io/${VERSION}/${OS}/codecov"
 curl -Os "https://uploader.codecov.io/${VERSION}/${OS}/codecov.SHA256SUM"
 curl -Os "https://uploader.codecov.io/${VERSION}/${OS}/codecov.SHA256SUM.sig"
 gpg --verify codecov.SHA256SUM.sig codecov.SHA256SUM
+=======
+echo "${CODECOV_PUBLIC_PGP_KEY}" | gpg --no-default-keyring --keyring trustedkeys.gpg --import # One-time step
+curl -Os "https://cli.codecov.io/${OS}/${VERSION}/codecov"
+curl -Os "https://cli.codecov.io/${OS}/${VERSION}/codecov.SHA256SUM"
+curl -Os "https://cli.codecov.io/${OS}/${VERSION}/codecov.SHA256SUM.sig"
+gpgv codecov.SHA256SUM.sig codecov.SHA256SUM
+>>>>>>> e34162d (using codecovcli as the uploader)
 shasum -a 256 -c codecov.SHA256SUM
 
 chmod +x codecov
 
-curl -H "Accept: application/json" "https://uploader.codecov.io/${OS}/${VERSION}" | grep -o '\"version\":\"v[0-9\.\_]\+\"' | head -1
+curl -H "Accept: application/json" "https://cli.codecov.io/${OS}/${VERSION}" | grep -o '\"version\":\"v[0-9\.\_]\+\"' | head -1
 
-[ -n "${ENABLE_SWIFT_CONVERSION}" ] && set - "${@}" "--xs"
-[ -n "${SWIFT_PROJECT}" ] && set - "${@}" "--xsp" "${SWIFT_PROJECT}"
-[ -n "${XCODE_ARCHIVE_PATH}" ] && set - "${@}" "--xc" "--xp" "${XCODE_ARCHIVE_PATH}"
+#create commit in codecov
+./codecov create-commit -t ${CODECOV_TOKEN}
+
+#create report
+./codecov create-report -t ${CODECOV_TOKEN}
 
 echo "-Z ${other_options}" "${@}"
 
 # Upload coverage to Codecov
-./codecov -Q "bitrise-step-3.3.3" -Z ${other_options} "${@}"
+./codecov do-upload -t ${CODECOV_TOKEN} -Z ${other_options} "${@}"
