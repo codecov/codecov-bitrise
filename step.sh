@@ -67,7 +67,9 @@ chmod +x codecov
 
 curl -H "Accept: application/json" "https://uploader.codecov.io/${OS}/${VERSION}" | grep -o '\"version\":\"v[0-9\.\_]\+\"' | head -1
 
-[ -n "${XCODE_ARCHIVE_PATH}" ] && set - "${@}" "--xc" "--xp" "${XCODE_ARCHIVE_PATH}"
+[ -n "${SWIFT_PROJECT}" ] && set - "${@}" "--xsp" "${SWIFT_PROJECT}"
+
+echo "--xs -Z ${other_options}" "${@}"
 
 # Upload coverage to Codecov
-./codecov -Q "bitrise-step-3.2.0" -Z ${other_options} "${@}"
+./codecov -Q "bitrise-step-4.0.0" --xs -Z ${other_options} "${@}"
