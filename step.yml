@@ -32,14 +32,14 @@ inputs:
     opts:
       title: "Uploader Version"
       description: |
-        Version of the Codecov Uploader to use (e.g. `v0.1.0_8880`)
+        Version of the Codecov Uploader to use (e.g. `v0.6.1`)
       is_required: false
       is_sensitive: false
-  - XCODE_ARCHIVE_PATH:
+  - SWIFT_PROJECT:
     opts:
-      title: "Xcode archive path"
+      title: "Swift project name"
       description: |
-        Specify the xcode archive path. Likely specified as the -resultBundlePath and should end in .xcresult. Only needed if running with xcode support
+        Specify the swift project
       is_required: false
       is_sensitive: false
   - other_options: "-C $GIT_CLONE_COMMIT_HASH"
