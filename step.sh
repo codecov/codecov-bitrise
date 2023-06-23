@@ -57,6 +57,7 @@ QKWiWJQF/XopkXwkyAYpyuyRMZ77oF7nuqLFnl5VVEiRo0Fwu45erebc6ccSwYZU
 
 # Download and verify Codecov uploader
 echo "${CODECOV_PUBLIC_PGP_KEY}" | gpg --no-default-keyring --keyring trustedkeys.gpg --import # One-time step
+echo "${CODECOV_PUBLIC_PGP_KEY}" | gpg --no-default-keyring --keyring trustedkeys.kbx --import # One-time step
 curl -Os "https://uploader.codecov.io/${VERSION}/${OS}/codecov"
 curl -Os "https://uploader.codecov.io/${VERSION}/${OS}/codecov.SHA256SUM"
 curl -Os "https://uploader.codecov.io/${VERSION}/${OS}/codecov.SHA256SUM.sig"
