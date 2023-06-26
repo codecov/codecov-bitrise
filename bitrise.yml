@@ -49,3 +49,11 @@ workflows:
         inputs:
         - CODECOV_TOKEN: $CODECOV_TOKEN
         - other_options: $OPTIONS
+  audit-this-step:
+    steps:
+    - script:
+        inputs:
+        - content: |-
+            #!/bin/bash
+            set -ex
+            stepman audit --step-yml ./step.yml
