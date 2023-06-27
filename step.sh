@@ -75,4 +75,4 @@ curl -H "Accept: application/json" "https://uploader.codecov.io/${OS}/${VERSION}
 echo "-Z ${other_options}" "${@}"
 
 # Upload coverage to Codecov
-./codecov -Q "bitrise-step-4.0.0" -Z --xs ${other_options} "${@}"
+./codecov -Q "bitrise-step-3.3.0" -Z ${other_options} "${@}"
