@@ -35,11 +35,25 @@ inputs:
         Version of the Codecov Uploader to use (e.g. `v0.6.1`)
       is_required: false
       is_sensitive: false
+  - XCODE_ARCHIVE_PATH:
+    opts:
+      title: "[Deprecating] Xcode archive path"
+      description: |
+        --Deprecating-- Specify the xcode archive path. Likely specified as the -resultBundlePath and should end in .xcresult. Only needed if running with xcode support
+  - ENABLE_SWIFT_CONVERSION:
+    opts:
+      title: "Enable swift coverage"
+      description: |
+        Enable swift coverage conversation.
+      is_required: false
+      is_sensitive: false
+      value_options:
+        - "true"
   - SWIFT_PROJECT:
     opts:
       title: "Swift project name"
       description: |
-        Specify the swift project
+        Specify the swift project. Will only work properly if ENABLE_SWIFT_CONVERSION is set to `true`
       is_required: false
       is_sensitive: false
   - other_options: "-C $GIT_CLONE_COMMIT_HASH"
