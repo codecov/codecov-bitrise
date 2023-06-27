@@ -40,7 +40,7 @@ inputs:
       title: "[Deprecating] Xcode archive path"
       description: |
         --Deprecating-- Specify the xcode archive path. Likely specified as the -resultBundlePath and should end in .xcresult. Only needed if running with xcode support
-  - ENABLE_SWIFT_CONVERSION:
+  - ENABLE_SWIFT_CONVERSION: "false"
     opts:
       title: "Enable swift coverage"
       description: |
@@ -49,6 +49,7 @@ inputs:
       is_sensitive: false
       value_options:
         - "true"
+        - "false"
   - SWIFT_PROJECT:
     opts:
       title: "Swift project name"
