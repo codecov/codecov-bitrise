@@ -56,7 +56,7 @@ QKWiWJQF/XopkXwkyAYpyuyRMZ77oF7nuqLFnl5VVEiRo0Fwu45erebc6ccSwYZU
 -----END PGP PUBLIC KEY BLOCK-----"
 
 # Download and verify Codecov uploader
-echo "${CODECOV_PUBLIC_PGP_KEY}" | gpg --no-default-keyring --import # One-time step
+echo "${CODECOV_PUBLIC_PGP_KEY}" | gpg --no-default-keyring --keyring trustedkeys.kbx --import # One-time step
 curl -Os "https://uploader.codecov.io/${VERSION}/${OS}/codecov"
 curl -Os "https://uploader.codecov.io/${VERSION}/${OS}/codecov.SHA256SUM"
 curl -Os "https://uploader.codecov.io/${VERSION}/${OS}/codecov.SHA256SUM.sig"
@@ -74,4 +74,4 @@ curl -H "Accept: application/json" "https://uploader.codecov.io/${OS}/${VERSION}
 echo "-Z ${other_options}" "${@}"
 
 # Upload coverage to Codecov
-./codecov -Q "bitrise-step-3.3.2" -Z ${other_options} "${@}"
+./codecov -Q "bitrise-step-3.3.3" -Z ${other_options} "${@}"
