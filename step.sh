@@ -1,7 +1,6 @@
 #!/bin/bash
 
 set -e
-set -x
 
 CODECOV_PUBLIC_PGP_KEY="-----BEGIN PGP PUBLIC KEY BLOCK-----
 

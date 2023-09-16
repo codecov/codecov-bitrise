@@ -4,7 +4,6 @@ app:
   envs:
   - OPTIONS: -Z
   - OS: macos
-  - VERSION: latest
 workflows:
   test:
     steps:
@@ -16,9 +15,14 @@ workflows:
         - content: |-
             pip3 install -r app/requirements.txt
             pytest --cov app
-            pwd
     - path::/Users/vagrant/git:
         title: Step Test
+				run_if: true
+				is_skippable: false
+        inputs:
+        - CODECOV_TOKEN: $CODECOV_TOKEN
+        - OS: $OS
+        - other_options: $OPTIONS
     - script:
         title: Step audit
         inputs:
