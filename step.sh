@@ -57,9 +57,9 @@ QKWiWJQF/XopkXwkyAYpyuyRMZ77oF7nuqLFnl5VVEiRo0Fwu45erebc6ccSwYZU
 
 # Download and verify Codecov uploader
 echo "${CODECOV_PUBLIC_PGP_KEY}" | gpg --no-default-keyring --import # One-time step
-curl -Os "https://cli.codecov.io/${OS}/${VERSION}/codecov"
-curl -Os "https://cli.codecov.io/${OS}/${VERSION}/codecov.SHA256SUM"
-curl -Os "https://cli.codecov.io/${OS}/${VERSION}/codecov.SHA256SUM.sig"
+curl -Os "https://cli.codecov.io/${VERSION}/${OS}/codecov"
+curl -Os "https://cli.codecov.io/${VERSION}/${OS}/codecov.SHA256SUM"
+curl -Os "https://cli.codecov.io/${VERSION}/${OS}/codecov.SHA256SUM.sig"
 gpg --verify codecov.SHA256SUM.sig codecov.SHA256SUM
 shasum -a 256 -c codecov.SHA256SUM
 
