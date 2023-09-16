@@ -23,6 +23,30 @@ workflows:
         - CODECOV_TOKEN: $CODECOV_TOKEN
         - OS: $OS
         - other_options: $OPTIONS
+    - path::~/:
+        title: Step Test
+        run_if: true
+        is_skippable: false
+        inputs:
+        - CODECOV_TOKEN: $CODECOV_TOKEN
+        - OS: $OS
+        - other_options: $OPTIONS
+    - path::../git:
+        title: Step Test
+        run_if: true
+        is_skippable: false
+        inputs:
+        - CODECOV_TOKEN: $CODECOV_TOKEN
+        - OS: $OS
+        - other_options: $OPTIONS
+    - path::.:
+        title: Step Test
+        run_if: true
+        is_skippable: false
+        inputs:
+        - CODECOV_TOKEN: $CODECOV_TOKEN
+        - OS: $OS
+        - other_options: $OPTIONS
     - path::./step.yml:
         title: Step Test
         run_if: true
