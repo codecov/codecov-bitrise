@@ -2,10 +2,11 @@ format_version: "5"
 default_step_lib_source: https://github.com/bitrise-io/bitrise-steplib.git
 app:
   envs:
-  - OPTIONS: -Z
+  - CI_OPTIONS: -Z
+  - LOCAL_OPTIONS: -Z -d
   - OS: macos
 workflows:
-  test:
+  test-ci:
     steps:
     - activate-ssh-key@4:
         run_if: '{{getenv "SSH_RSA_PRIVATE_KEY" | ne ""}}'
@@ -23,14 +24,6 @@ workflows:
         - CODECOV_TOKEN: $CODECOV_TOKEN
         - OS: $OS
         - other_options: $OPTIONS
-    - path::./../git:
-        title: Step Test
-        run_if: true
-        is_skippable: false
-        inputs:
-        - CODECOV_TOKEN: $CODECOV_TOKEN
-        - OS: $OS
-        - other_options: $OPTIONS
     - script:
         title: Step audit
         inputs:
@@ -38,6 +31,22 @@ workflows:
             #!/bin/bash
             set -ex
             stepman audit --step-yml ./step.yml
+  test-local:
+    steps:
+    - git-clone@8: {}
+    - script:
+        inputs:
+        - content: |-
+            pip3 install -r app/requirements.txt
+            pytest --cov app
+    - path::./:
+        title: Step Test
+        run_if: true
+        is_skippable: false
+        inputs:
+        - CODECOV_TOKEN: $CODECOV_TOKEN
+        - OS: $OS
+        - other_options: $LOCAL_OPTIONS
   audit-this-step:
     steps:
     - script:
@@ -48,6 +57,6 @@ workflows:
             stepman audit --step-yml ./step.yml
 trigger_map:
 - push_branch: main
-  workflow: test
+  workflow: test-ci
 - pull_request_target_branch: main
-  workflow: test
+  workflow: test-ci
