@@ -56,19 +56,11 @@ QKWiWJQF/XopkXwkyAYpyuyRMZ77oF7nuqLFnl5VVEiRo0Fwu45erebc6ccSwYZU
 -----END PGP PUBLIC KEY BLOCK-----"
 
 # Download and verify Codecov uploader
-<<<<<<< HEAD
 echo "${CODECOV_PUBLIC_PGP_KEY}" | gpg --no-default-keyring --import # One-time step
-curl -Os "https://uploader.codecov.io/${VERSION}/${OS}/codecov"
-curl -Os "https://uploader.codecov.io/${VERSION}/${OS}/codecov.SHA256SUM"
-curl -Os "https://uploader.codecov.io/${VERSION}/${OS}/codecov.SHA256SUM.sig"
-gpg --verify codecov.SHA256SUM.sig codecov.SHA256SUM
-=======
-echo "${CODECOV_PUBLIC_PGP_KEY}" | gpg --no-default-keyring --keyring trustedkeys.gpg --import # One-time step
 curl -Os "https://cli.codecov.io/${OS}/${VERSION}/codecov"
 curl -Os "https://cli.codecov.io/${OS}/${VERSION}/codecov.SHA256SUM"
 curl -Os "https://cli.codecov.io/${OS}/${VERSION}/codecov.SHA256SUM.sig"
-gpgv codecov.SHA256SUM.sig codecov.SHA256SUM
->>>>>>> e34162d (using codecovcli as the uploader)
+gpg --verify codecov.SHA256SUM.sig codecov.SHA256SUM
 shasum -a 256 -c codecov.SHA256SUM
 
 chmod +x codecov
