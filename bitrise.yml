@@ -20,8 +20,6 @@ workflows:
             ls -al
     - path::./:
         title: Step Test
-        run_if: true
-        is_skippable: false
         inputs:
           - CODECOV_TOKEN: $CODECOV_TOKEN
           - OS: macos
