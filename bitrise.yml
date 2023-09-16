@@ -23,9 +23,9 @@ workflows:
         run_if: true
         is_skippable: false
         inputs:
-        - CODECOV_TOKEN: $CODECOV_TOKEN
-        - OS: macos
-        - other_options: -Z
+          - CODECOV_TOKEN: $CODECOV_TOKEN
+          - OS: macos
+          - other_options: -Z
     - script:
         title: Step audit
         inputs:
