@@ -2,3 +2,5 @@
 *.py[oc]
 .coverage
 _tmp
+codecov*
+coverage.xml
