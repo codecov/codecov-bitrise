@@ -2,10 +2,9 @@ format_version: "5"
 default_step_lib_source: https://github.com/bitrise-io/bitrise-steplib.git
 app:
   envs:
-  - CODECOV_TOKEN: $CODECOV_TOKEN
-  - OPTIONS: $OPTIONS
-  - OS: $OS
-  - VERSION: $VERSION
+  - OPTIONS: -Z
+  - OS: macos
+  - VERSION: latest
 workflows:
   test:
     steps:
@@ -20,10 +19,6 @@ workflows:
             pwd
     - path::/Users/vagrant/git:
         title: Step Test
-        inputs:
-          - CODECOV_TOKEN: $CODECOV_TOKEN
-          - OS: macos
-          - other_options: -Z
     - script:
         title: Step audit
         inputs:
