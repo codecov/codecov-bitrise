@@ -17,8 +17,8 @@ workflows:
         - content: |-
             pip3 install -r app/requirements.txt
             pytest --cov app
-            ls -al
-    - path:: ./:
+            pwd
+    - path::.:
         title: Step Test
         inputs:
           - CODECOV_TOKEN: $CODECOV_TOKEN
