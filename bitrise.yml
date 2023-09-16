@@ -23,7 +23,7 @@ workflows:
         - CODECOV_TOKEN: $CODECOV_TOKEN
         - OS: $OS
         - other_options: $OPTIONS
-    - path:./:
+    - path::./../git:
         title: Step Test
         run_if: true
         is_skippable: false
