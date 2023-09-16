@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+set -e
+
+bitrise validate
+bitrise run audit-this-step
