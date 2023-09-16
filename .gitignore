@@ -1,2 +1,4 @@
 .bitrise*
+*.py[oc]
+.coverage
 _tmp

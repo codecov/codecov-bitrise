@@ -19,8 +19,8 @@ workflows:
     - script:
         inputs:
         - content: |-
-            pip3 install -r test-app/requirements.txt
-            pytest --cov test-app
+            pip3 install -r app/requirements.txt
+            pytest --cov app
     - path::./:
         title: Step Test
         run_if: true
