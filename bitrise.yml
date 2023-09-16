@@ -1,36 +1,38 @@
-format_version: '13'
+format_version: "5"
 default_step_lib_source: https://github.com/bitrise-io/bitrise-steplib.git
-
 app:
   envs:
   - CODECOV_TOKEN: $CODECOV_TOKEN
   - OPTIONS: $OPTIONS
   - OS: $OS
   - VERSION: $VERSION
-
 workflows:
   test:
     steps:
-    - script:
-        title: Step audit
-        inputs:
-        - content: stepman audit --step-yml=./step.yml
     - activate-ssh-key@4:
         run_if: '{{getenv "SSH_RSA_PRIVATE_KEY" | ne ""}}'
     - git-clone@8: {}
-    - script@1:
+    - script:
         inputs:
         - content: |-
-            pip3 install -r test-app/requirements.txt
-            pytest --cov test-app
+            pip3 install -r app/requirements.txt
+            pytest --cov app
+            ls -al
     - path::./:
         title: Step Test
         run_if: true
         is_skippable: false
         inputs:
-        - CODECOV_TOKEN: $CODECOV_TOKEN
-        - OS: macos
-        - other_options: -Z
+          - CODECOV_TOKEN: $CODECOV_TOKEN
+          - OS: macos
+          - other_options: -Z
+    - script:
+        title: Step audit
+        inputs:
+        - content: |-
+            #!/bin/bash
+            set -ex
+            stepman audit --step-yml ./step.yml
   audit-this-step:
     steps:
     - script:
@@ -39,3 +41,8 @@ workflows:
             #!/bin/bash
             set -ex
             stepman audit --step-yml ./step.yml
+trigger_map:
+- push_branch: main
+  workflow: test
+- pull_request_target_branch: main
+  workflow: test
