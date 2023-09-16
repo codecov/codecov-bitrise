@@ -9,14 +9,14 @@ app:
 workflows:
   test:
     steps:
+    - activate-ssh-key@4:
+        run_if: '{{getenv "SSH_RSA_PRIVATE_KEY" | ne ""}}'
+    - git-clone@8: {}
     - script:
         title: Step audit
         inputs:
         - content: stepman audit --step-yml=./step.yml
-    - activate-ssh-key@4:
-        run_if: '{{getenv "SSH_RSA_PRIVATE_KEY" | ne ""}}'
-    - git-clone@8: {}
-    - script@1:
+    - script:
         inputs:
         - content: |-
             pip3 install -r test-app/requirements.txt
