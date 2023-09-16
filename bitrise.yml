@@ -17,8 +17,8 @@ workflows:
             pytest --cov app
     - path::/Users/vagrant/git:
         title: Step Test
-				run_if: true
-				is_skippable: false
+        run_if: true
+        is_skippable: false
         inputs:
         - CODECOV_TOKEN: $CODECOV_TOKEN
         - OS: $OS
