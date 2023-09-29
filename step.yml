@@ -32,32 +32,12 @@ inputs:
     opts:
       title: "Uploader Version"
       description: |
-        Version of the Codecov Uploader to use (e.g. `v0.6.1`)
-      is_required: false
-      is_sensitive: false
-  - XCODE_ARCHIVE_PATH:
-    opts:
-      title: "[Deprecating] Xcode archive path"
-      description: |
-        --Deprecating-- Specify the xcode archive path. Likely specified as the -resultBundlePath and should end in .xcresult. Only needed if running with xcode support
-  - ENABLE_SWIFT_CONVERSION:
-    opts:
-      title: "Enable swift coverage"
-      description: |
-        Enable swift coverage conversation by setting to 'true'.
-      is_required: false
-      is_sensitive: false
-  - SWIFT_PROJECT:
-    opts:
-      title: "Swift project name"
-      description: |
-        Specify the swift project. Will only work properly if ENABLE_SWIFT_CONVERSION is set to `true`
+        Version of the Codecov Uploader to use (e.g. `v0.1.2`)
       is_required: false
       is_sensitive: false
   - other_options: "-C $GIT_CLONE_COMMIT_HASH"
     opts:
       title: Additional options for Codecov call
       description: |-
-        Options to pass along to the Codecov uploader.
+        Options to pass along to the Codecovcli uploader.
         You can use multiple options, separated by a space.
-        Review all options at https://github.com/codecov/uploader
