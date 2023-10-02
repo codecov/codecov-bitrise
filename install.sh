@@ -10,3 +10,5 @@ for i in pre-commit; do
     rm -fv $i
     ln -sv ../../hooks/$i
 done
+
+echo "Update the .bitrise.secrets.yml file"
