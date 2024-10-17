@@ -8,4 +8,4 @@ git add step.sh
 
 bitrise validate
 bitrise run audit-this-step
-bitrise run test-local
+#bitrise run test-local

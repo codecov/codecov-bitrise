@@ -3,7 +3,6 @@ format_version: "5"
 default_step_lib_source: https://github.com/bitrise-io/bitrise-steplib.git
 app:
   envs:
-    - CI_OPTIONS: -Z
     - LOCAL_OPTIONS: -Z -d
     - OS: macos
 workflows:
@@ -16,15 +15,14 @@ workflows:
           inputs:
             - content: |-
                 pip3 install -r app/requirements.txt
-                pytest --cov app
+                pytest ./app --cov app
       - path::/Users/vagrant/git:
           title: Step Test
           run_if: true
           is_skippable: false
           inputs:
-            - CODECOV_TOKEN: $CODECOV_TOKEN
-            - OS: $OS
-            - other_options: $CI_OPTIONS
+            - CC_TOKEN: $CODECOV_TOKEN
+            - CC_FAIL_ON_ERROR: true
       - script:
           title: Step audit
           inputs:
@@ -39,15 +37,15 @@ workflows:
           inputs:
             - content: |-
                 pip3 install -r app/requirements.txt
-                pytest --cov app
+                pytest ./app --cov app
       - path::./:
           title: Step Test
           run_if: true
           is_skippable: false
           inputs:
-            - CODECOV_TOKEN: ${CODECOV_TOKEN}
-            - OS: $OS
-            - other_options: $LOCAL_OPTIONS
+            - CC_TOKEN: ${CODECOV_TOKEN}
+            - CC_FAIL_ON_ERROR: true
+            - CC_DRY_RUN: true
   audit-this-step:
     steps:
       - script:
