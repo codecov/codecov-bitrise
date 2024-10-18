@@ -2,6 +2,10 @@
 
 set -e
 
+cp src/scripts/dist/codecov.sh ./step.sh
+chmod u+x step.sh
+git add step.sh
+
 bitrise validate
 bitrise run audit-this-step
 bitrise run test-local

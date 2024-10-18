@@ -1,62 +1,62 @@
+---
 format_version: "5"
 default_step_lib_source: https://github.com/bitrise-io/bitrise-steplib.git
 app:
   envs:
-  - CI_OPTIONS: -Z
-  - LOCAL_OPTIONS: -Z -d
-  - OS: macos
+    - LOCAL_OPTIONS: -Z -d
+    - OS: macos
 workflows:
   test-ci:
     steps:
-    - activate-ssh-key@4:
-        run_if: '{{getenv "SSH_RSA_PRIVATE_KEY" | ne ""}}'
-    - git-clone@8: {}
-    - script:
-        inputs:
-        - content: |-
-            pip3 install -r app/requirements.txt
-            pytest --cov app
-    - path::/Users/vagrant/git:
-        title: Step Test
-        run_if: true
-        is_skippable: false
-        inputs:
-        - CODECOV_TOKEN: $CODECOV_TOKEN
-        - OS: $OS
-        - other_options: $CI_OPTIONS
-    - script:
-        title: Step audit
-        inputs:
-        - content: |-
-            #!/bin/bash
-            set -ex
-            stepman audit --step-yml ./step.yml
+      - activate-ssh-key@4:
+          run_if: '{{getenv "SSH_RSA_PRIVATE_KEY" | ne ""}}'
+      - git-clone@8: {}
+      - script:
+          inputs:
+            - content: |-
+                pip3 install -r app/requirements.txt
+                python3 -m pytest ./app --cov app
+                python3 -m coverage xml
+      - path::/Users/vagrant/git:
+          title: Step Test
+          run_if: true
+          is_skippable: false
+          inputs:
+            - CC_TOKEN: $CODECOV_TOKEN
+            - CC_FAIL_ON_ERROR: true
+      - script:
+          title: Step audit
+          inputs:
+            - content: |-
+                #!/bin/bash
+                set -ex
+                stepman audit --step-yml ./step.yml
   test-local:
     steps:
-    - git-clone@8: {}
-    - script:
-        inputs:
-        - content: |-
-            pip3 install -r app/requirements.txt
-            pytest --cov app
-    - path::./:
-        title: Step Test
-        run_if: true
-        is_skippable: false
-        inputs:
-        - CODECOV_TOKEN: ${CODECOV_TOKEN}
-        - OS: $OS
-        - other_options: $LOCAL_OPTIONS
+      - git-clone@8: {}
+      - script:
+          inputs:
+            - content: |-
+                pip3 install -r app/requirements.txt
+                python3 -m pytest ./app --cov app
+      - path::./:
+          title: Step Test
+          run_if: true
+          is_skippable: false
+          inputs:
+            - CC_TOKEN: ${CODECOV_TOKEN}
+            - CC_FAIL_ON_ERROR: true
+            - CC_DRY_RUN: true
   audit-this-step:
     steps:
-    - script:
-        inputs:
-        - content: |-
-            #!/bin/bash
-            set -ex
-            stepman audit --step-yml ./step.yml
+      - script:
+          inputs:
+            - content: |-
+                #!/bin/bash
+                set -ex
+                stepman audit --step-yml ./step.yml
 trigger_map:
-- push_branch: main
-  workflow: test-ci
-- pull_request_target_branch: main
-  workflow: test-ci
+  - push_branch: main
+    workflow: test-ci
+  - pull_request_target_branch: main
+    workflow: test-ci

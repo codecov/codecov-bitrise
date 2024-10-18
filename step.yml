@@ -1,10 +1,13 @@
+---
+# yamllint disable rule:line-length
 title: Codecov
 summary: |-
   Upload your code coverage files to Codecov.io
 description: |-
   Reduce technical debt with visualized test performance,
   faster code reviews and workflow enhancements.
-  Now you can upload your code coverage files to Codecov every time you kick off a build!
+  Now you can upload your code coverage files to Codecov
+  every time you kick off a build!
 website: https://codecov.io
 source_code_url: https://github.com/codecov/codecov-bitrise
 support_url: https://community.codecov.io
@@ -14,30 +17,262 @@ is_requires_admin_user: false
 is_always_run: false
 is_skippable: true
 inputs:
-  - CODECOV_TOKEN:
+  - CC_BINARY:
     opts:
-      title: "Codecov.io token"
-      description: |
-        Codecov.io repository upload token
-      is_required: true
-      is_sensitive: true
-  - OS:
-    opts:
-      title: "OS Name"
-      description: |
-        Name of the OS being used (options are "alpine" | "linux" | "macos")
-      is_required: true
-      is_sensitive: false
-  - VERSION: "latest"
-    opts:
-      title: "Uploader Version"
-      description: |
-        Version of the Codecov Uploader to use (e.g. `v0.1.2`)
+      title: "binary"
+      description: The file location of a pre-downloaded version of the CLI. If specified, integrity checking will be bypassed.
       is_required: false
       is_sensitive: false
-  - other_options: "-C $GIT_CLONE_COMMIT_HASH"
+  - CC_BRANCH:
     opts:
-      title: Additional options for Codecov call
-      description: |-
-        Options to pass along to the Codecovcli uploader.
-        You can use multiple options, separated by a space.
+      title: "branch"
+      description: Branch to which this commit belongs
+      is_required: false
+      is_sensitive: false
+  - CC_BUILD:
+    opts:
+      title: "build"
+      description: Specify the build number manually
+      is_required: false
+      is_sensitive: false
+  - CC_BUILD_URL:
+    opts:
+      title: "build_url"
+      description: The URL of the build where this is running
+      is_required: false
+      is_sensitive: false
+  - CC_CODE:
+    opts:
+      title: "code"
+      description: The code of the report if using local upload. If unsure, leave default. Read more here https://docs.codecov.com/docs/the-codecov-cli#how-to-use-local-upload
+      is_required: false
+      is_sensitive: false
+  - CC_DIR:
+    opts:
+      title: "dir"
+      description: Folder to search for coverage files. Default to the current working directory
+      is_required: false
+      is_sensitive: false
+  - CC_DISABLE_FILE_FIXES: "false"
+    opts:
+      title: "disable_file_fixes"
+      description: Disable file fixes to ignore common lines from coverage (e.g. blank lines or empty brackets). Read more here https://docs.codecov.com/docs/fixing-reports
+      is_required: false
+      is_sensitive: false
+      value_options:
+        - "true"
+        - "false"
+  - CC_DISABLE_SEARCH: "false"
+    opts:
+      title: "disable_search"
+      description: Disable search for coverage files. This is helpful when specifying what files you want to upload with the files option.
+      is_required: false
+      is_sensitive: false
+      value_options:
+        - "true"
+        - "false"
+  - CC_DRY_RUN: "false"
+    opts:
+      title: "dry_run"
+      description: Don't upload files to Codecov.
+      is_required: false
+      is_sensitive: false
+      value_options:
+        - "true"
+        - "false"
+  - CC_ENTERPRISE_URL:
+    opts:
+      title: "enterprise_url"
+      description: Set to the Codecov instance URl. Only applicable to some Enterprise users.
+      is_required: false
+      is_sensitive: false
+  - CC_ENV:
+    opts:
+      title: "env"
+      description: Specify environment variables to be included with this build
+      is_required: false
+      is_sensitive: false
+  - CC_EXCLUDES:
+    opts:
+      title: "excludes"
+      description: Comma-separated list of folders to exclude from search.
+      is_required: false
+      is_sensitive: false
+  - CC_FAIL_ON_ERROR: "false"
+    opts:
+      title: "fail_on_error"
+      description: Exit with non-zero code in case of error.
+      is_required: false
+      is_sensitive: false
+      value_options:
+        - "true"
+        - "false"
+  - CC_FILES:
+    opts:
+      title: "files"
+      description: Comma-separated list of explicit files to upload. These will be added to the coverage files found for upload. If you wish to only upload the specified files, please consider using disable-search to disable uploading other files.
+      is_required: false
+      is_sensitive: false
+  - CC_FLAGS:
+    opts:
+      title: "flags"
+      description: Comma-separated list of flags to upload to group coverage metrics.
+      is_required: false
+      is_sensitive: false
+  - CC_GCOV_ARGS:
+    opts:
+      title: "gcov_args"
+      description: Extra arguments to pass to gcov
+      is_required: false
+      is_sensitive: false
+  - CC_GCOV_EXECUTABLE:
+    opts:
+      title: "gcov_executable"
+      description: gcov executable to run. Defaults to 'gcov'
+      is_required: false
+      is_sensitive: false
+  - CC_GCOV_IGNORE:
+    opts:
+      title: "gcov_ignore"
+      description: Paths to ignore during gcov gathering
+      is_required: false
+      is_sensitive: false
+  - CC_GCOV_INCLUDE:
+    opts:
+      title: "gcov_include"
+      description: "Paths to include during gcov gathering"
+      is_required: false
+      is_sensitive: false
+  - CC_GIT_SERVICE:
+    opts:
+      title: "git_service"
+      description: One of [github|gitlab|bitbucket|github_enterprise|gitlab_enterprise|bitbucket_server]
+      is_required: false
+      is_sensitive: false
+      value_options:
+        - "bitbucket"
+        - "bitbucket_enterprise"
+        - "github"
+        - "github_enterprise"
+        - "gitlab"
+        - "gitlab_enterprise"
+  - CC_HANDLE_NO_REPORTS_FOUND: "false"
+    opts:
+      title: "handle_no_reports_found"
+      description: Raise no exceptions when no coverage reports are found.
+      is_required: false
+      is_sensitive: false
+      value_options:
+        - "true"
+        - "false"
+  - CC_JOB_CODE:
+    opts:
+      title: "job_code"
+      description: |
+      is_required: false
+      is_sensitive: false
+  - CC_LEGACY: "false"
+    opts:
+      title: "legacy"
+      description: Use the legacy upload endpoint.
+      is_required: false
+      is_sensitive: false
+      value_options:
+        - "true"
+        - "false"
+  - CC_NAME:
+    opts:
+      title: "name"
+      description: Custom defined name of the upload. Visible in Codecov UI
+      is_required: false
+      is_sensitive: false
+  - CC_NETWORK_FILTER:
+    opts:
+      title: "network_filter"
+      description: Specify a filter on the files listed in the network section of the Codecov report. This will only add files whose path begin with the specified filter. Useful for upload-specific path fixing.
+      is_required: false
+      is_sensitive: false
+  - CC_NETWORK_PREFIX:
+    opts:
+      title: "network_prefix"
+      description: Specify a prefix on files listed in the network section of the Codecov report. Useful to help resolve path fixing.
+      is_required: false
+      is_sensitive: false
+  - CC_NETWORK_ROOT_FOLDER:
+    opts:
+      title: "network_root_folder"
+      description: Root folder from which to consider paths on the network section. Defaults to current working directory.
+      is_required: false
+      is_sensitive: false
+  - CC_PARENT_SHA:
+    opts:
+      title: "parent_sha"
+      description: SHA (with 40 chars) of what should be the parent of this commit.
+      is_required: false
+      is_sensitive: false
+  - CC_PLUGINS:
+    opts:
+      title: "plugins"
+      description: Comma-separated list of plugins to run. Specify `noop` to turn off all plugins
+      is_required: false
+      is_sensitive: false
+  - CC_PR:
+    opts:
+      title: "pr"
+      description: Specify the pull request number manually. Used to override pre-existing CI environment variables.
+      is_required: false
+      is_sensitive: false
+  - CC_REPORT_TYPE:
+    opts:
+      title: "report_type"
+      description: The type of file to upload, coverage by default. Possible values are "testing", "coverage".
+      is_required: false
+      is_sensitive: false
+  - CC_SHA:
+    opts:
+      title: "sha"
+      description: Commit SHA (with 40 chars)
+      is_required: false
+      is_sensitive: false
+  - CC_SKIP_VALIDATION: "false"
+    opts:
+      title: "skip_validation"
+      description: Skip integrity checking of the CLI. This is NOT recommended.
+      is_required: false
+      is_sensitive: false
+      value_options:
+        - "true"
+        - "false"
+  - CC_SLUG:
+    opts:
+      title: "slug"
+      description: Set to the owner/repo slug used instead of the private repo token. Only applicable to some Enterprise users.
+      is_required: false
+      is_sensitive: false
+  - CC_SWIFT_PROJECT:
+    opts:
+      title: "swift_project"
+      description: Specify the swift project name. Useful for optimization.
+      is_required: false
+      is_sensitive: false
+  - CC_TOKEN:
+    opts:
+      title: "token"
+      description: The repository upload token given in Codecov.io
+      is_required: false
+      is_sensitive: false
+  - CC_VERBOSE: "false"
+    opts:
+      title: "verbose"
+      description: Use verbose logging in the CLI
+      is_required: false
+      is_sensitive: false
+      value_options:
+        - "true"
+        - "false"
+  - CC_VERSION: "latest"
+    opts:
+      title: "version"
+      description: Which version of the Codecov CLI to use (defaults to 'latest')
+      is_required: false
+      is_sensitive: false
