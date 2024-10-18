@@ -149,13 +149,6 @@ inputs:
       description: One of [github|gitlab|bitbucket|github_enterprise|gitlab_enterprise|bitbucket_server]
       is_required: false
       is_sensitive: false
-      value_options:
-        - "bitbucket"
-        - "bitbucket_enterprise"
-        - "github"
-        - "github_enterprise"
-        - "gitlab"
-        - "gitlab_enterprise"
   - CC_HANDLE_NO_REPORTS_FOUND: "false"
     opts:
       title: "handle_no_reports_found"
