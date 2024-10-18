@@ -16,6 +16,7 @@ workflows:
             - content: |-
                 pip3 install -r app/requirements.txt
                 python3 -m pytest ./app --cov app
+                python3 -m coverage xml
       - path::/Users/vagrant/git:
           title: Step Test
           run_if: true
