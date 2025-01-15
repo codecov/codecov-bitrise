@@ -71,6 +71,15 @@ inputs:
       value_options:
         - "true"
         - "false"
+  - CC_DISABLE_TELEM: "false"
+    opts:
+      title: "disable_telem"
+      description: Disable sending telemetry data to Codecov.
+      is_required: false
+      is_sensitive: false
+      value_options:
+        - "true"
+        - "false"
   - CC_DRY_RUN: "false"
     opts:
       title: "dry_run"
