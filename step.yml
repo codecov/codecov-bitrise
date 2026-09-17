@@ -41,6 +41,15 @@ inputs:
       description: The URL of the build where this is running
       is_required: false
       is_sensitive: false
+  - CC_CLEANUP: "false"
+    opts:
+      title: "cleanup"
+      description: If true, download the CLI into a temporary directory and clean it up after the run. Off by default to preserve legacy behavior of downloading into the current working directory.
+      is_required: false
+      is_sensitive: false
+      value_options:
+        - "true"
+        - "false"
   - CC_CODE:
     opts:
       title: "code"
